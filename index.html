@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>source.archive — history channel research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #0a0e27;
+    --bg-deep-2: #11163a;
+    --jelly-grape: #9966ff;
+    --jelly-grape-soft: rgba(153, 102, 255, 0.18);
+    --jelly-mint: #5ef5c4;
+    --jelly-mint-soft: rgba(94, 245, 196, 0.16);
+    --jelly-peach: #ff9ecd;
+    --jelly-peach-soft: rgba(255, 158, 205, 0.16);
+    --chrome-white: #f0f4ff;
+    --chrome-dim: #b8c0e8;
+    --ink: #1a1530;
+    --border-glow: rgba(153, 102, 255, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(153,102,255,0.25), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 90%, rgba(94,245,196,0.12), transparent),
+      var(--bg-deep);
+    color: var(--chrome-white);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* faint scanline texture, very subtle */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.012) 0px,
+      rgba(255,255,255,0.012) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    z-index: 1;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  header.hero {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--jelly-mint);
+    background: var(--jelly-mint-soft);
+    border: 1px solid rgba(94,245,196,0.4);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+  }
+
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--jelly-mint);
+    box-shadow: 0 0 8px var(--jelly-mint);
+  }
+
+  h1.title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 6vw, 52px);
+    margin: 0 0 10px;
+    background: linear-gradient(135deg, var(--chrome-white) 20%, var(--jelly-grape) 60%, var(--jelly-peach) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    color: var(--chrome-dim);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* chrome bar */
+  .chrome-bar {
+    background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border: 1px solid var(--border-glow);
+    border-radius: 20px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.04) inset,
+      0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  .chrome-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .chrome-dots span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: block;
+  }
+  .chrome-dots span:nth-child(1) { background: var(--jelly-peach); }
+  .chrome-dots span:nth-child(2) { background: #ffd66b; }
+  .chrome-dots span:nth-child(3) { background: var(--jelly-mint); }
+
+  .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-input {
+    flex: 1 1 220px;
+    background: rgba(10,14,39,0.6);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 11px 16px;
+    color: var(--chrome-white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input::placeholder { color: var(--chrome-dim); opacity: 0.7; }
+  .search-input:focus {
+    border-color: var(--jelly-grape);
+    box-shadow: 0 0 0 3px var(--jelly-grape-soft);
+  }
+
+  select.filter-select {
+    background: rgba(10,14,39,0.6);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 11px 14px;
+    color: var(--chrome-white);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  select.filter-select:focus { border-color: var(--jelly-mint); }
+  select.filter-select option { background: var(--bg-deep-2); color: var(--chrome-white); }
+
+  .meta-row {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--chrome-dim);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .meta-row .count-num { color: var(--jelly-mint); font-weight: 600; }
+
+  /* card grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(153,102,255,0.16), rgba(255,158,205,0.06) 60%, rgba(94,245,196,0.05));
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 22px;
+    padding: 20px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  /* specular highlight - the jelly shine */
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -20%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 70%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--jelly-mint);
+    box-shadow: 0 12px 32px rgba(94,245,196,0.18), 0 0 0 1px rgba(94,245,196,0.25) inset;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .type-bead {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.18) inset, 0 4px 10px rgba(0,0,0,0.25);
+  }
+  .type-bead.link { background: linear-gradient(160deg, var(--jelly-grape), #6b3fd6); }
+  .type-bead.note { background: linear-gradient(160deg, var(--jelly-peach), #d6629f); }
+  .type-bead.file { background: linear-gradient(160deg, var(--jelly-mint), #2bc996); }
+
+  .card-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--chrome-white);
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-note {
+    font-size: 13px;
+    color: var(--chrome-dim);
+    line-height: 1.5;
+    margin: 0 0 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .tag.topic { background: var(--jelly-grape-soft); color: #c9b3ff; border: 1px solid rgba(153,102,255,0.4); }
+  .tag.episode { background: rgba(255,255,255,0.06); color: var(--chrome-dim); border: 1px solid rgba(255,255,255,0.14); }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 12px;
+  }
+
+  .card-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--jelly-mint);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  .card-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--chrome-dim);
+    opacity: 0.7;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--chrome-dim);
+  }
+  .empty-state .emoji { font-size: 36px; margin-bottom: 12px; }
+  .empty-state p { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+  footer.page-footer {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--chrome-dim);
+    opacity: 0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+  }
+
+  @media (max-width: 480px) {
+    .controls-row { flex-direction: column; }
+    select.filter-select { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span> RESEARCH ARCHIVE — LIVE</div>
+    <h1 class="title">source.archive</h1>
+    <p class="subtitle">Every link, note, and scan for the channel, in one place. Search it, filter it, never lose a citation again.</p>
+  </header>
+
+  <div class="chrome-bar">
+    <div class="chrome-dots"><span></span><span></span><span></span></div>
+    <div class="controls-row">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search titles, notes, tags...">
+      <select id="topicFilter" class="filter-select">
+        <option value="">All topics</option>
+      </select>
+      <select id="episodeFilter" class="filter-select">
+        <option value="">All episodes</option>
+      </select>
+      <select id="typeFilter" class="filter-select">
+        <option value="">All types</option>
+        <option value="link">Links</option>
+        <option value="note">Notes</option>
+        <option value="file">Files</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <span><span class="count-num" id="resultCount">0</span> sources shown</span>
+    <span id="totalCount"></span>
+  </div>
+
+  <div class="grid" id="cardGrid"></div>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <div class="emoji">⊙_⊙</div>
+    <p>NO_RESULTS — try a different search or filter</p>
+  </div>
+
+  <footer class="page-footer">source.archive — built for the channel, one rabbit hole at a time</footer>
+</div>
+
+<script>
+  let allSources = [];
+
+  const typeIcon = { link: '🔗', note: '✎', file: '📄' };
+
+  async function loadSources() {
+    try {
+      const res = await fetch('sources.json');
+      allSources = await res.json();
+      populateFilters();
+      render();
+    } catch (e) {
+      document.getElementById('cardGrid').innerHTML =
+        '<p style="color:#b8c0e8;font-family:monospace;">Could not load sources.json — make sure it is in the same folder as this page.</p>';
+    }
+  }
+
+  function populateFilters() {
+    const topics = new Set();
+    const episodes = new Set();
+    allSources.forEach(s => {
+      (s.topics || []).forEach(t => topics.add(t));
+      (s.episodes || []).forEach(e => episodes.add(e));
+    });
+
+    const topicSelect = document.getElementById('topicFilter');
+    [...topics].sort().forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t; opt.textContent = t;
+      topicSelect.appendChild(opt);
+    });
+
+    const epSelect = document.getElementById('episodeFilter');
+    [...episodes].sort().forEach(e => {
+      const opt = document.createElement('option');
+      opt.value = e; opt.textContent = e;
+      epSelect.appendChild(opt);
+    });
+
+    document.getElementById('totalCount').textContent = `${allSources.length} total in archive`;
+  }
+
+  function render() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const topic = document.getElementById('topicFilter').value;
+    const episode = document.getElementById('episodeFilter').value;
+    const type = document.getElementById('typeFilter').value;
+
+    const filtered = allSources.filter(s => {
+      if (topic && !(s.topics || []).includes(topic)) return false;
+      if (episode && !(s.episodes || []).includes(episode)) return false;
+      if (type && s.type !== type) return false;
+      if (query) {
+        const haystack = [
+          s.title, s.note, ...(s.topics || []), ...(s.episodes || [])
+        ].join(' ').toLowerCase();
+        if (!haystack.includes(query)) return false;
+      }
+      return true;
+    });
+
+    const grid = document.getElementById('cardGrid');
+    const empty = document.getElementById('emptyState');
+    document.getElementById('resultCount').textContent = filtered.length;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    grid.innerHTML = filtered.map(cardHtml).join('');
+  }
+
+  function cardHtml(s) {
+    const topicTags = (s.topics || []).map(t => `<span class="tag topic">${escapeHtml(t)}</span>`).join('');
+    const epTags = (s.episodes || []).map(e => `<span class="tag episode">${escapeHtml(e)}</span>`).join('');
+
+    let linkHtml = '';
+    if (s.type === 'link' && s.url) {
+      linkHtml = `<a class="card-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">open link →</a>`;
+    } else if (s.type === 'file' && s.file_path) {
+      linkHtml = `<a class="card-link" href="${escapeHtml(s.file_path)}" target="_blank" rel="noopener">open file →</a>`;
+    } else {
+      linkHtml = `<span class="card-link" style="opacity:0.4;cursor:default;">no link</span>`;
+    }
+
+    return `
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <h3 class="card-title">${escapeHtml(s.title)}</h3>
+          </div>
+          <div class="type-bead ${s.type}">${typeIcon[s.type] || '•'}</div>
+        </div>
+        ${s.note ? `<p class="card-note">${escapeHtml(s.note)}</p>` : ''}
+        <div class="tag-row">${topicTags}${epTags}</div>
+        <div class="card-footer">
+          ${linkHtml}
+          <span class="card-date">${escapeHtml(s.date_added || '')}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  ['searchInput', 'topicFilter', 'episodeFilter', 'typeFilter'].forEach(id => {
+    document.getElementById(id).addEventListener('input', render);
+  });
+
+  loadSources();
+</script>
+</body>
+</html>
