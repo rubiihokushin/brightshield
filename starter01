@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 bright shield</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Griffy&family=Modern+Antiqua&family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Modern Antiqua', cursive;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0d2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.4) 0%, rgba(255, 107, 157, 0.1) 70%, transparent 100%);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(138, 43, 226, 0.1) 70%, transparent 100%);
+            top: 60%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .orb3 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.4) 0%, rgba(255, 165, 0, 0.1) 70%, transparent 100%);
+            bottom: 30%;
+            left: 70%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Griffy', cursive;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b9d, #8a2be2, #ffa500, #ff6b9d);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+            margin-bottom: 10px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #c0c0c0;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Crystal navigation */
+        .crystal-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .crystal-btn {
+            position: relative;
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.3), rgba(255, 107, 157, 0.3));
+            border: 2px solid rgba(255, 107, 157, 0.5);
+            border-radius: 15px;
+            color: #fff;
+            font-family: 'Griffy', cursive;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(255, 107, 157, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .crystal-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b9d, #8a2be2, #ffa500, #ff6b9d);
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .crystal-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .crystal-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* Quest sections */
+        .quest-section {
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quest-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b9d, #8a2be2, #ffa500);
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .quest-title {
+            font-family: 'Griffy', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b9d;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+        }
+
+        .quest-subtitle {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .quest-card {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(138, 43, 226, 0.15) 100%);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quest-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .quest-card:hover::before {
+            left: 100%;
+        }
+
+        .quest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.3);
+            border-color: rgba(255, 107, 157, 0.6);
+        }
+
+        .quest-card h3 {
+            font-family: 'Griffy', cursive;
+            font-size: 1.2rem;
+            color: #ffa500;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .quest-card p {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .quest-card .difficulty {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 157, 0.3);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 107, 157, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b9d, #8a2be2, #ffa500);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 2s linear infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+            
+            .crystal-nav {
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            
+            .crystal-btn {
+                width: 80px;
+                height: 45px;
+                font-size: 0.8rem;
+                padding: 5px;
+            }
+            
+            .quest-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .quest-section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .quest-title {
+                font-size: 1.5rem;
+            }
+            
+            .quest-subtitle {
+                font-size: 1rem;
+            }
+            
+            .quest-card {
+                padding: 15px;
+            }
+            
+            .quest-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .quest-card p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .crystal-nav {
+                gap: 8px;
+            }
+            
+            .crystal-btn {
+                width: 70px;
+                height: 40px;
+                font-size: 0.7rem;
+            }
+            
+            .quest-section {
+                padding: 15px;
+            }
+            
+            .quest-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Game modal styles */
+        .game-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+            margin: 2% auto;
+            padding: 0;
+            border: 2px solid rgba(255, 107, 157, 0.5);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1200px;
+            height: 90%;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 107, 157, 0.3);
+        }
+
+        .modal-title {
+            font-family: 'Griffy', cursive;
+            font-size: 1.8rem;
+            color: #ff6b9d;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ff6b9d;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 107, 157, 0.2);
+            transform: scale(1.1);
+        }
+
+        .game-container {
+            display: flex;
+            height: calc(100% - 80px);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .game-frame {
+            flex: 2;
+            background: #000;
+            border-radius: 15px;
+            padding: 10px;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+        }
+
+        .game-frame iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .game-instructions {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 157, 0.2);
+        }
+
+        .game-instructions h3 {
+            font-family: 'Griffy', cursive;
+            color: #ffa500;
+            margin-bottom: 15px;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .crystal-btn.small {
+            width: auto;
+            height: 40px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Play overlay for game cards */
+        .game-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.9), rgba(138, 43, 226, 0.9));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            font-family: 'Griffy', cursive;
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Locked game styles */
+        .quest-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(138, 43, 226, 0.3));
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .unlock-text {
+            font-family: 'Griffy', cursive;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* Mobile responsiveness for modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 98%;
+                height: 95%;
+                margin: 1% auto;
+            }
+            
+            .game-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .game-frame {
+                flex: none;
+                height: 60%;
+            }
+            
+            .game-instructions {
+                flex: none;
+                height: 35%;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
+            }
+        }
+          /* Glowing elements */
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 157, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 107, 157, 0.8), 0 0 40px rgba(255, 107, 157, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="stars"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title glow">🌸 Closet Craft Academy</h1>
+            <p class="subtitle">✨ Where Medieval Craftsmanship Meets Cyber Magic ✨</p>
+            <p class="subtitle">Master the ancient art of sewing through interactive quest-based adventures!</p>
+        </header>
+
+        <nav class="crystal-nav">
+            <a href="#quests" class="crystal-btn">🎮 Quests</a>
+            <a href="#progress" class="crystal-btn">📊 Progress</a>
+            <a href="#badges" class="crystal-btn">🏆 Badges</a>
+            <a href="#community" class="crystal-btn">👥 Guild</a>
+        </nav>
+
+        <section class="quest-section" id="quests">
+            <h2 class="quest-title">🧵 Current Adventures</h2>
+            <p class="quest-subtitle">Choose your path, young apprentice</p>
+            
+            <div class="quest-grid">
+                <div class="quest-card game-card" onclick="openGameModal('machine-familiar')">
+                    <div class="difficulty">Beginner</div>
+                    <div class="play-overlay">
+                        <div class="play-button">▶️ PLAY</div>
+                    </div>
+                    <h3>🎯 Meet Your Sewing Machine Familiar</h3>
+                    <p>Embark on your first quest to bond with your magical sewing machine. Learn the sacred art of threading and discover the mystical parts that make the magic happen!</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quest-card game-card" onclick="openGameModal('five-stitches')">
+                    <div class="difficulty">Beginner</div>
+                    <div class="play-overlay">
+                        <div class="play-button">▶️ PLAY</div>
+                    </div>
+                    <h3>⚔️ The Fundamental Five Stitches</h3>
+                    <p>Master the five legendary stitches that form the foundation of all sewing magic. Each stitch holds ancient power waiting to be unlocked!</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quest-card game-card locked" onclick="showLockedMessage()">
+                    <div class="difficulty">Intermediate</div>
+                    <div class="lock-overlay">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-text">Complete previous quests to unlock</div>
+                    </div>
+                    <h3>🌲 Fabric Forest Expedition</h3>
+                    <p>Venture into the mystical Fabric Forest to discover the properties of different textile realms. From Cotton Kingdom to Polyester Palace!</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quest-card game-card locked" onclick="showLockedMessage()">
+                    <div class="difficulty">Boss Fight</div>
+                    <div class="lock-overlay">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-text">Complete previous quests to unlock</div>
+                    </div>
+                    <h3>👜 Simple Tote Bag Creation</h3>
+                    <p>Face your first boss battle! Combine all your learned skills to craft your very first complete project - a magical tote bag!</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Modal -->
+        <div id="gameModal" class="game-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="gameTitle" class="modal-title"></h2>
+                    <button class="close-btn" onclick="closeGameModal()">✕</button>
+                </div>
+                <div class="game-container">
+                    <div class="game-frame">
+                        <iframe id="gameFrame" src="" width="800" height="600" frameborder="0"></iframe>
+                    </div>
+                    <div class="game-instructions">
+                        <h3>🎮 Quest Instructions</h3>
+                        <div id="gameInstructions"></div>
+                        <div class="game-controls">
+                            <button class="crystal-btn small" onclick="restartGame()">🔄 Restart</button>
+                            <button class="crystal-btn small" onclick="toggleFullscreen()">🖥️ Fullscreen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="quest-section" id="progress">
+            <h2 class="quest-title">📊 Your Journey Progress</h2>
+            <p class="quest-subtitle">Track your advancement through the realms</p>
+            
+            <div class="quest-grid">
+                <div class="quest-card">
+                    <h3>🌟 Current Level: Apprentice</h3>
+                    <p>Level 1 of 50 • 0/100 XP to next level</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3>🏆 Badges Earned</h3>
+                    <p>0 of 50 badges collected</p>
+                    <div style="margin-top: 15px;">
+                        <span style="font-size: 2rem; opacity: 0.3;">🥇🏅⭐🎯🌟</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3>📈 Skill Mastery</h3>
+                    <p>Machine Skills: 0% • Pattern Reading: 0% • Construction: 0%</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quest-section" id="community">
+            <h2 class="quest-title">👥 Crafters' Guild</h2>
+            <p class="quest-subtitle">Join fellow adventurers on their sewing quests</p>
+            
+            <div class="quest-grid">
+                <div class="quest-card">
+                    <h3>💬 Community Forum</h3>
+                    <a href="https://discord.com/invite/FmcBrZ66" class="discord-btn" target="_blank"> 🧚 Join the Craft Closet Academy on Discord!</a>
+                    <p>Share your creations, get help with tricky quests, and connect with other apprentice seamsters!</p>
+                </div>
+
+                <div class="quest-card">
+                    <h3>🎨 Project Gallery</h3>
+                    <p>Showcase your completed quests and admire the magical creations of your fellow guild members!</p>
+                </div>
+
+                <div class="quest-card">
+                    <h3>🔄 Pattern Exchange</h3>
+                    <p>Trade patterns, share modifications, and collaborate on custom designs with the community!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Generate animated stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Animate progress bars on scroll
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.width = (Math.random() * 60 + 20) + '%';
+                }, index * 200);
+            });
+        }
+
+        // Add click effects to quest cards
+        function addClickEffects() {
+            const questCards = document.querySelectorAll('.quest-card');
+            questCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 150);
+                });
+            });
+        }
+
+        // Game modal functions
+        const gameData = {
+            'machine-familiar': {
+                title: '🎯 Meet Your Sewing Machine Familiar',
+                url: 'https://scratch.mit.edu/projects/1197735000/embed',
+                instructions: `
+                    <p><strong>Phase 1:</strong> Click on the glowing hotspots to identify each part of your sewing machine familiar!</p>
+                    <p><strong>Phase 2:</strong> Drag the magical thread through the correct path to awaken your machine.</p>
+                    <p><strong>Phase 3:</strong> Follow the light sequence to complete the bonding ritual!</p>
+                    <br>
+                    <p><strong>🎯 Goal:</strong> Successfully identify all parts and complete the threading quest to unlock your machine's power!</p>
+                    <p><strong>💡 Tip:</strong> Take your time - each part has a special function to discover!</p>
+                `
+            },
+            'five-stitches': {
+                title: '⚔️ The Fundamental Five Stitches',
+                url: 'https://scratch.mit.edu/projects/1196021940/embed',
+                instructions: `
+                    <p><strong>Learn the ancient stitches:</strong></p>
+                    <p>• Straight Stitch - The foundation of all sewing</p>
+                    <p>• Zigzag Stitch - For stretchy fabrics and finishing</p>
+                    <p>• Buttonhole Stitch - Create perfect openings</p>
+                    <p>• Overlock Stitch - Prevent fraying</p>
+                    <p>• Blind Hem Stitch - Invisible magic!</p>
+                    <br>
+                    <p><strong>🎯 Goal:</strong> Master each stitch through interactive mini-games!</p>
+                    <p><strong>💡 Tip:</strong> Each stitch has its own special use - learn when to use each one!</p>
+                `
+            }
+        };
+
+        // Add this to your existing JavaScript section
+
+// Progress tracking system
+let playerProgress = {
+    level: 1,
+    xp: 0,
+    xpToNext: 100,
+    completedQuests: [],
+    badges: [],
+    skills: {
+        machine: 0,
+        patternReading: 0,
+        construction: 0
+    }
+};
+
+// Quest definitions with XP rewards
+const quests = {
+    'machine-familiar': {
+        name: 'Meet Your Sewing Machine Familiar',
+        xpReward: 50,
+        skillRewards: { machine: 25 },
+        badge: '🎯'
+    },
+    'five-stitches': {
+        name: 'The Fundamental Five Stitches',
+        xpReward: 75,
+        skillRewards: { machine: 25, construction: 20 },
+        badge: '⚔️'
+    },
+    'fabric-forest': {
+        name: 'Fabric Forest Expedition',
+        xpReward: 100,
+        skillRewards: { patternReading: 30, construction: 15 },
+        badge: '🌲'
+    },
+    'tote-bag': {
+        name: 'Simple Tote Bag Creation',
+        xpReward: 150,
+        skillRewards: { construction: 40, machine: 10, patternReading: 10 },
+        badge: '👜'
+    }
+};
+
+// Complete a quest
+function completeQuest(questId) {
+    if (playerProgress.completedQuests.includes(questId)) {
+        return; // Already completed
+    }
+    
+    const quest = quests[questId];
+    
+    // Add XP
+    playerProgress.xp += quest.xpReward;
+    
+    // Add skills
+    Object.keys(quest.skillRewards).forEach(skill => {
+        playerProgress.skills[skill] += quest.skillRewards[skill];
+        if (playerProgress.skills[skill] > 100) {
+            playerProgress.skills[skill] = 100;
+        }
+    });
+    
+    // Add badge
+    playerProgress.badges.push(quest.badge);
+    
+    // Mark as completed
+    playerProgress.completedQuests.push(questId);
+    
+    // Check for level up
+    checkLevelUp();
+    
+    // Update UI
+    updateProgressUI();
+    
+    // Show completion message
+    showQuestComplete(quest);
+    
+    // Unlock next quest
+    unlockNextQuest(questId);
+}
+
+// Check if player leveled up
+function checkLevelUp() {
+    while (playerProgress.xp >= playerProgress.xpToNext) {
+        playerProgress.xp -= playerProgress.xpToNext;
+        playerProgress.level++;
+        playerProgress.xpToNext = Math.floor(playerProgress.xpToNext * 1.2); // Increase XP needed
+        
+        // Show level up notification
+        showLevelUp();
+    }
+}
+
+// Show quest completion notification
+function showQuestComplete(quest) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, rgba(255, 107, 157, 0.9), rgba(138, 43, 226, 0.9));
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        z-index: 2000;
+        font-family: 'Griffy', cursive;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 107, 157, 0.5);
+        transform: translateX(300px);
+        transition: transform 0.3s ease;
+    `;
+    
+    notification.innerHTML = `
+        <div style="font-size: 1.2rem; margin-bottom: 10px;">🎉 Quest Complete!</div>
+        <div>${quest.name}</div>
+        <div style="font-size: 0.9rem; margin-top: 5px;">+${quest.xpReward} XP • ${quest.badge} Badge Earned</div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(300px)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Show level up notification
+function showLevelUp() {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 107, 157, 0.9));
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        z-index: 2000;
+        font-family: 'Griffy', cursive;
+        text-align: center;
+        backdrop-filter: blur(15px);
+        border: 3px solid rgba(255, 215, 0, 0.8);
+        font-size: 1.5rem;
+        animation: levelUpPulse 0.5s ease;
+    `;
+    
+    notification.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 10px;">🌟</div>
+        <div>LEVEL UP!</div>
+        <div style="font-size: 1.2rem; margin-top: 10px;">Level ${playerProgress.level}</div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        document.body.removeChild(notification);
+    }, 2000);
+}
+
+// Update progress UI
+function updateProgressUI() {
+    // Update level display
+    const levelCard = document.querySelector('.quest-card h3');
+    if (levelCard && levelCard.textContent.includes('Current Level')) {
+        levelCard.textContent = `🌟 Current Level: ${getLevelName(playerProgress.level)}`;
+        levelCard.nextElementSibling.textContent = `Level ${playerProgress.level} of 50 • ${playerProgress.xp}/${playerProgress.xpToNext} XP to next level`;
+        
+        // Update level progress bar
+        const levelProgress = levelCard.parentElement.querySelector('.progress-fill');
+        levelProgress.style.width = (playerProgress.xp / playerProgress.xpToNext * 100) + '%';
+    }
+    
+    // Update badges
+    const badgeCard = document.querySelector('.quest-card h3');
+    const badgeCards = document.querySelectorAll('.quest-card h3');
+    badgeCards.forEach(card => {
+        if (card.textContent.includes('Badges Earned')) {
+            card.nextElementSibling.textContent = `${playerProgress.badges.length} of 50 badges collected`;
+            
+            // Update badge display
+            const badgeDisplay = card.parentElement.querySelector('span');
+            let badgeHTML = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < playerProgress.badges.length) {
+                    badgeHTML += `<span style="opacity: 1; font-size: 2rem;">${playerProgress.badges[i]}</span>`;
+                } else {
+                    badgeHTML += `<span style="opacity: 0.3; font-size: 2rem;">🏅</span>`;
+                }
+            }
+            badgeDisplay.innerHTML = badgeHTML;
+        }
+        
+        if (card.textContent.includes('Skill Mastery')) {
+            card.nextElementSibling.textContent = `Machine Skills: ${playerProgress.skills.machine}% • Pattern Reading: ${playerProgress.skills.patternReading}% • Construction: ${playerProgress.skills.construction}%`;
+            
+            // Update skill progress bar (average of all skills)
+            const avgSkill = (playerProgress.skills.machine + playerProgress.skills.patternReading + playerProgress.skills.construction) / 3;
+            const skillProgress = card.parentElement.querySelector('.progress-fill');
+            skillProgress.style.width = avgSkill + '%';
+        }
+    });
+    
+    // Update individual quest progress bars
+    updateQuestProgressBars();
+}
+
+// Update quest progress bars
+function updateQuestProgressBars() {
+    const questCards = document.querySelectorAll('.quest-card');
+    questCards.forEach(card => {
+        const title = card.querySelector('h3');
+        if (title) {
+            const questId = getQuestIdFromTitle(title.textContent);
+            if (questId && playerProgress.completedQuests.includes(questId)) {
+                const progressBar = card.querySelector('.progress-fill');
+                if (progressBar) {
+                    progressBar.style.width = '100%';
+                }
+            }
+        }
+    });
+}
+
+// Get quest ID from title
+function getQuestIdFromTitle(title) {
+    if (title.includes('Sewing Machine Familiar')) return 'machine-familiar';
+    if (title.includes('Five Stitches')) return 'five-stitches';
+    if (title.includes('Fabric Forest')) return 'fabric-forest';
+    if (title.includes('Tote Bag')) return 'tote-bag';
+    return null;
+}
+
+// Get level name
+function getLevelName(level) {
+    if (level < 5) return 'Apprentice';
+    if (level < 10) return 'Novice';
+    if (level < 20) return 'Journeyman';
+    if (level < 30) return 'Artisan';
+    if (level < 40) return 'Master';
+    return 'Grandmaster';
+}
+
+// Unlock next quest
+function unlockNextQuest(completedQuestId) {
+    const questOrder = ['machine-familiar', 'five-stitches', 'fabric-forest', 'tote-bag'];
+    const currentIndex = questOrder.indexOf(completedQuestId);
+    
+    if (currentIndex >= 0 && currentIndex < questOrder.length - 1) {
+        const nextQuestId = questOrder[currentIndex + 1];
+        
+        // Find and unlock the next quest card
+        const questCards = document.querySelectorAll('.quest-card');
+        questCards.forEach(card => {
+            const title = card.querySelector('h3');
+            if (title) {
+                const cardQuestId = getQuestIdFromTitle(title.textContent);
+                if (cardQuestId === nextQuestId) {
+                    card.classList.remove('locked');
+                    card.onclick = function() { openGameModal(nextQuestId); };
+                    
+                    // Remove lock overlay
+                    const lockOverlay = card.querySelector('.lock-overlay');
+                    if (lockOverlay) {
+                        lockOverlay.remove();
+                    }
+                    
+                    // Add play overlay
+                    const playOverlay = document.createElement('div');
+                    playOverlay.className = 'play-overlay';
+                    playOverlay.innerHTML = '<div class="play-button">▶️ PLAY</div>';
+                    card.appendChild(playOverlay);
+                }
+            }
+        });
+    }
+}
+
+// Add complete quest button to modal
+function addCompleteQuestButton(questId) {
+    const gameControls = document.querySelector('.game-controls');
+    
+    // Remove existing complete button if any
+    const existingButton = document.getElementById('completeQuestBtn');
+    if (existingButton) {
+        existingButton.remove();
+    }
+    
+    // Add complete quest button
+    const completeBtn = document.createElement('button');
+    completeBtn.id = 'completeQuestBtn';
+    completeBtn.className = 'crystal-btn small';
+    completeBtn.textContent = '✅ Complete Quest';
+    completeBtn.onclick = function() {
+        completeQuest(questId);
+        closeGameModal();
+    };
+    
+    gameControls.appendChild(completeBtn);
+}
+
+// CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes levelUpPulse {
+        0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+`;
+document.head.appendChild(style);
+
+        function openGameModal(gameId) {
+            const modal = document.getElementById('gameModal');
+            const gameFrame = document.getElementById('gameFrame');
+            const gameTitle = document.getElementById('gameTitle');
+            const gameInstructions = document.getElementById('gameInstructions');
+            
+            const game = gameData[gameId];
+            
+            gameTitle.textContent = game.title;
+            gameFrame.src = game.url;
+            gameInstructions.innerHTML = game.instructions;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            addCompleteQuestButton(gameId); 
+        }
+
+        function closeGameModal() {
+            const modal = document.getElementById('gameModal');
+            const gameFrame = document.getElementById('gameFrame');
+            
+            modal.style.display = 'none';
+            gameFrame.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        function restartGame() {
+            const gameFrame = document.getElementById('gameFrame');
+            const currentSrc = gameFrame.src;
+            gameFrame.src = '';
+            setTimeout(() => {
+                gameFrame.src = currentSrc;
+            }, 100);
+        }
+
+        function toggleFullscreen() {
+            const gameFrame = document.getElementById('gameFrame');
+            if (gameFrame.requestFullscreen) {
+                gameFrame.requestFullscreen();
+            } else if (gameFrame.webkitRequestFullscreen) {
+                gameFrame.webkitRequestFullscreen();
+            } else if (gameFrame.msRequestFullscreen) {
+                gameFrame.msRequestFullscreen();
+            }
+        }
+
+        function showLockedMessage() {
+            alert('🔒 This quest is locked! Complete the previous adventures first to unlock new challenges!');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('gameModal');
+            if (event.target === modal) {
+                closeGameModal();
+            }
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeGameModal();
+            }
+        });
+document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeGameModal();
+            }
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            animateProgressBars();
+            addClickEffects();
+            updateProgressUI(); 
+        });
+    </script>
+</body>
+</html>
