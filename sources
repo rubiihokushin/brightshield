@@ -1,0 +1,35 @@
+[
+  {
+    "id": "src_0001",
+    "title": "The Diary of a Young Girl",
+    "type": "file",
+    "topics": ["WWII", "Holocaust", "primary-source"],
+    "episodes": ["ep01"],
+    "note": "Anne Frank's diary, scanned excerpt used for the opening narration. Cross-reference with the Anne Frank House digital archive for context notes.",
+    "url": "",
+    "file_path": "assets/anne_frank_diary_excerpt.pdf",
+    "date_added": "2026-06-01"
+  },
+  {
+    "id": "src_0002",
+    "title": "National Archives: WWII Records Collection",
+    "type": "link",
+    "topics": ["WWII", "archive", "primary-source"],
+    "episodes": ["ep01", "ep02"],
+    "note": "Massive collection of military records, photos, and correspondence. Good for B-roll research and fact-checking troop movements.",
+    "url": "https://www.archives.gov/research/military/ww2",
+    "file_path": "",
+    "date_added": "2026-06-01"
+  },
+  {
+    "id": "src_0003",
+    "title": "Thoughts on pacing the invasion sequence",
+    "type": "note",
+    "topics": ["WWII", "scripting"],
+    "episodes": ["ep02"],
+    "note": "Don't front-load all the dates. Viewers lose the thread when there are more than 3 dates in 60 seconds. Lead with the human story, drop dates in as texture.",
+    "url": "",
+    "file_path": "",
+    "date_added": "2026-06-03"
+  }
+]
