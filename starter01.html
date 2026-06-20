@@ -556,38 +556,7 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-
-        /* Locked game styles */
-        .quest-card.locked {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .lock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(138, 43, 226, 0.3));
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #ccc;
-        }
-
-        .lock-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .unlock-text {
-            font-family: 'Griffy', cursive;
-            font-size: 1rem;
-            text-align: center;
-        }
+      
 
         /* Mobile responsiveness for modal */
         @media (max-width: 768px) {
@@ -643,8 +612,6 @@
 
         <nav class="crystal-nav">
             <a href="#quests" class="crystal-btn">🎮 Quests</a>
-            <a href="#progress" class="crystal-btn">📊 Progress</a>
-            <a href="#badges" class="crystal-btn">🏆 Badges</a>
             <a href="#community" class="crystal-btn">👥 Guild</a>
         </nav>
 
@@ -658,8 +625,8 @@
                     <div class="play-overlay">
                         <div class="play-button">▶️ PLAY</div>
                     </div>
-                    <h3>🎯 Meet Your Sewing Machine Familiar</h3>
-                    <p>Embark on your first quest to bond with your magical sewing machine. Learn the sacred art of threading and discover the mystical parts that make the magic happen!</p>
+                    <h3> Meet Your Familiar</h3>
+                    <p>Embark on your first quest to bond with your magical information machine. Learn the sacred art of knowledge procurement and discover the mystical parts that make the magic happen!</p>
                     <div class="progress-container">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 0%;"></div>
@@ -683,10 +650,6 @@
 
                 <div class="quest-card game-card locked" onclick="showLockedMessage()">
                     <div class="difficulty">Intermediate</div>
-                    <div class="lock-overlay">
-                        <div class="lock-icon">🔒</div>
-                        <div class="unlock-text">Complete previous quests to unlock</div>
-                    </div>
                     <h3>🌲 Fabric Forest Expedition</h3>
                     <p>Venture into the mystical Fabric Forest to discover the properties of different textile realms. From Cotton Kingdom to Polyester Palace!</p>
                     <div class="progress-container">
@@ -697,11 +660,7 @@
                 </div>
 
                 <div class="quest-card game-card locked" onclick="showLockedMessage()">
-                    <div class="difficulty">Boss Fight</div>
-                    <div class="lock-overlay">
-                        <div class="lock-icon">🔒</div>
-                        <div class="unlock-text">Complete previous quests to unlock</div>
-                    </div>
+                    <div class="difficulty">Boss Fight</div
                     <h3>👜 Simple Tote Bag Creation</h3>
                     <p>Face your first boss battle! Combine all your learned skills to craft your very first complete project - a magical tote bag!</p>
                     <div class="progress-container">
@@ -735,40 +694,6 @@
                 </div>
             </div>
         </div>
-
-        <section class="quest-section" id="progress">
-            <h2 class="quest-title">📊 Your Journey Progress</h2>
-            <p class="quest-subtitle">Track your advancement through the realms</p>
-            
-            <div class="quest-grid">
-                <div class="quest-card">
-                    <h3>🌟 Current Level: Apprentice</h3>
-                    <p>Level 1 of 50 • 0/100 XP to next level</p>
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quest-card">
-                    <h3>🏆 Badges Earned</h3>
-                    <p>0 of 50 badges collected</p>
-                    <div style="margin-top: 15px;">
-                        <span style="font-size: 2rem; opacity: 0.3;">🥇🏅⭐🎯🌟</span>
-                    </div>
-                </div>
-
-                <div class="quest-card">
-                    <h3>📈 Skill Mastery</h3>
-                    <p>Machine Skills: 0% • Pattern Reading: 0% • Construction: 0%</p>
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section class="quest-section" id="community">
@@ -1031,49 +956,6 @@ function showLevelUp() {
         document.body.removeChild(notification);
     }, 2000);
 }
-
-// Update progress UI
-function updateProgressUI() {
-    // Update level display
-    const levelCard = document.querySelector('.quest-card h3');
-    if (levelCard && levelCard.textContent.includes('Current Level')) {
-        levelCard.textContent = `🌟 Current Level: ${getLevelName(playerProgress.level)}`;
-        levelCard.nextElementSibling.textContent = `Level ${playerProgress.level} of 50 • ${playerProgress.xp}/${playerProgress.xpToNext} XP to next level`;
-        
-        // Update level progress bar
-        const levelProgress = levelCard.parentElement.querySelector('.progress-fill');
-        levelProgress.style.width = (playerProgress.xp / playerProgress.xpToNext * 100) + '%';
-    }
-    
-    // Update badges
-    const badgeCard = document.querySelector('.quest-card h3');
-    const badgeCards = document.querySelectorAll('.quest-card h3');
-    badgeCards.forEach(card => {
-        if (card.textContent.includes('Badges Earned')) {
-            card.nextElementSibling.textContent = `${playerProgress.badges.length} of 50 badges collected`;
-            
-            // Update badge display
-            const badgeDisplay = card.parentElement.querySelector('span');
-            let badgeHTML = '';
-            for (let i = 0; i < 5; i++) {
-                if (i < playerProgress.badges.length) {
-                    badgeHTML += `<span style="opacity: 1; font-size: 2rem;">${playerProgress.badges[i]}</span>`;
-                } else {
-                    badgeHTML += `<span style="opacity: 0.3; font-size: 2rem;">🏅</span>`;
-                }
-            }
-            badgeDisplay.innerHTML = badgeHTML;
-        }
-        
-        if (card.textContent.includes('Skill Mastery')) {
-            card.nextElementSibling.textContent = `Machine Skills: ${playerProgress.skills.machine}% • Pattern Reading: ${playerProgress.skills.patternReading}% • Construction: ${playerProgress.skills.construction}%`;
-            
-            // Update skill progress bar (average of all skills)
-            const avgSkill = (playerProgress.skills.machine + playerProgress.skills.patternReading + playerProgress.skills.construction) / 3;
-            const skillProgress = card.parentElement.querySelector('.progress-fill');
-            skillProgress.style.width = avgSkill + '%';
-        }
-    });
     
     // Update individual quest progress bars
     updateQuestProgressBars();
@@ -1103,51 +985,6 @@ function getQuestIdFromTitle(title) {
     if (title.includes('Fabric Forest')) return 'fabric-forest';
     if (title.includes('Tote Bag')) return 'tote-bag';
     return null;
-}
-
-// Get level name
-function getLevelName(level) {
-    if (level < 5) return 'Apprentice';
-    if (level < 10) return 'Novice';
-    if (level < 20) return 'Journeyman';
-    if (level < 30) return 'Artisan';
-    if (level < 40) return 'Master';
-    return 'Grandmaster';
-}
-
-// Unlock next quest
-function unlockNextQuest(completedQuestId) {
-    const questOrder = ['machine-familiar', 'five-stitches', 'fabric-forest', 'tote-bag'];
-    const currentIndex = questOrder.indexOf(completedQuestId);
-    
-    if (currentIndex >= 0 && currentIndex < questOrder.length - 1) {
-        const nextQuestId = questOrder[currentIndex + 1];
-        
-        // Find and unlock the next quest card
-        const questCards = document.querySelectorAll('.quest-card');
-        questCards.forEach(card => {
-            const title = card.querySelector('h3');
-            if (title) {
-                const cardQuestId = getQuestIdFromTitle(title.textContent);
-                if (cardQuestId === nextQuestId) {
-                    card.classList.remove('locked');
-                    card.onclick = function() { openGameModal(nextQuestId); };
-                    
-                    // Remove lock overlay
-                    const lockOverlay = card.querySelector('.lock-overlay');
-                    if (lockOverlay) {
-                        lockOverlay.remove();
-                    }
-                    
-                    // Add play overlay
-                    const playOverlay = document.createElement('div');
-                    playOverlay.className = 'play-overlay';
-                    playOverlay.innerHTML = '<div class="play-button">▶️ PLAY</div>';
-                    card.appendChild(playOverlay);
-                }
-            }
-        });
-    }
 }
 
 // Add complete quest button to modal
